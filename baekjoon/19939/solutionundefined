@@ -2,6 +2,9 @@
 
 #include<iostream>
 int main(){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(0);    
+    std::cout.tie(0);
     int n,k;
     std::cin>>n>>k;
     int sum=k*(k+1)/2;
@@ -14,4 +17,5 @@ int main(){
             std::cout<<k;
         }
     }
+    return 0;
 }
