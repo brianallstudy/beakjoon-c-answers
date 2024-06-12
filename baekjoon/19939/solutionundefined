@@ -1,0 +1,17 @@
+// [문제 링크]: https://www.acmicpc.net/problem/19939
+
+#include<iostream>
+int main(){
+    int n,k;
+    std::cin>>n>>k;
+    int sum=k*(k+1)/2;
+    if(sum>n){
+        std::cout<<-1;
+    }else{
+        if((n-sum)%k==0){
+            std::cout<<k-1;
+        }else{
+            std::cout<<k;
+        }
+    }
+}
