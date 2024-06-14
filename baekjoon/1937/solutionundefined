@@ -1,0 +1,65 @@
+// [문제 링크]: https://www.acmicpc.net/problem/1937
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+​
+int n;
+vector<vector<int>> bamboo;
+vector<vector<int>> dp;
+vector<vector<bool>> visited;
+​
+// Directions for moving in the grid (right, left, down, up)
+int dir[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+​
+int dfs(int x, int y) {
+    // If this cell has been visited before, return the stored result
+    if (dp[x][y] != -1) {
+        return dp[x][y];
+    }
+​
+    // Mark the cell as visited and initialize the path length from this cell as 1
+    dp[x][y] = 1;
+​
+    // Explore all 4 possible directions
+    for (int i = 0; i < 4; i++) {
+        int newX = x + dir[i][0];
+        int newY = y + dir[i][1];
+​
+        // Check if the new coordinates are within bounds and have more bamboo
+        if (newX >= 0 && newY >= 0 && newX < n && newY < n && bamboo[newX][newY] > bamboo[x][y]) {
+            dp[x][y] = max(dp[x][y], 1 + dfs(newX, newY));
+        }
+    }
+​
+    return dp[x][y];
+}
+​
+int main() {
+    // Read the input
+    cin >> n;
+    bamboo.resize(n, vector<int>(n));
+    dp.resize(n, vector<int>(n, -1)); // Initialize dp array with -1 (meaning unvisited)
+​
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> bamboo[i][j];
+        }
+    }
+​
+    int maxPath = 0;
+​
+    // Check the longest path starting from each cell
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            maxPath = max(maxPath, dfs(i, j));
+        }
+    }
+​
+    // Output the maximum path length
+    cout << maxPath;
+​
+    return 0;
+}
+​
