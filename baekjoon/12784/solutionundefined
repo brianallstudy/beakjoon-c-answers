@@ -1,0 +1,71 @@
+// [문제 링크]: https://www.acmicpc.net/problem/12784
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+#include <cstring>
+​
+using namespace std;
+​
+const int MAXN = 1001;
+​
+int n, m, t;
+vector<pair<int, int>> adj[MAXN];
+bool visited[MAXN];
+​
+int dfs(int node) {
+    visited[node] = true;
+    int total_dynamite = 0;
+​
+    for (auto &edge : adj[node]) {
+        int next_node = edge.first;
+        int dynamite_cost = edge.second;
+​
+        if (!visited[next_node]) {
+            int subtree_dynamite = dfs(next_node);
+            total_dynamite += min(dynamite_cost, subtree_dynamite);
+        }
+    }
+​
+    return total_dynamite == 0 ? INT_MAX : total_dynamite;
+}
+​
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    cin >> t;
+​
+    while (t--) {
+        cin >> n >> m;
+​
+        // Reset graph and visited array
+        for (int i = 0; i < n; ++i) {
+            adj[i].clear();
+        }
+        memset(visited, false, sizeof(visited));
+​
+        for (int i = 0; i < m; ++i) {
+            int u, v, d;
+            cin >> u >> v >> d;
+            --u; --v;  // Convert to 0-based indexing
+            adj[u].emplace_back(v, d);
+            adj[v].emplace_back(u, d);  // Since the bridges are bidirectional
+        }
+​
+        int result = 0;
+​
+        for (auto &edge : adj[0]) {  // Check all direct connections from island 1
+            memset(visited, false, sizeof(visited));
+            visited[0] = true;
+            int subtree_dynamite = dfs(edge.first);
+            result += min(edge.second, subtree_dynamite);
+        }
+​
+        cout << result << '\n';
+    }
+​
+    return 0;
+}
+​
