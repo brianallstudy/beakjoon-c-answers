@@ -1,0 +1,48 @@
+// [문제 링크]: https://www.acmicpc.net/problem/2890
+
+#include <iostream>
+#include <string>
+#include <set>
+​
+using namespace std;
+​
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+​
+  int a, b;
+  cin >> a >> b;
+  int c[9];
+​
+  for (int i = 0; i < a; i++) {
+    int d = -1;
+    int e = -1;
+    string f;
+    cin >> f;
+    for (int j = 0; j < b; j++) {
+      if (f[j] != 'S' && f[j] != '.' && f[j] != 'F') {
+        e = f[j] - '1';
+        d = j;
+        break;
+      }
+    }
+    if (d != -1 && e != -1) {
+      c[e] = d;
+    }
+  }
+​
+  for (int i = 0; i < 9; i++) {
+    int g = 1;
+    set<int> h;
+    for (int j = 0; j < 9; j++) {
+      if (c[j] > c[i] && !h.count(c[j])) {
+        g++;
+        h.insert(c[j]);
+      }
+    }
+    cout << g << endl;
+  }
+​
+  return 0;
+}
+​
