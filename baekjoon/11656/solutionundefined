@@ -1,0 +1,23 @@
+// [문제 링크]: https://www.acmicpc.net/problem/11656
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+int main(){
+    std::string a;
+    std::ios::sync_with_stdio(0);
+    std::cin.tie(0);
+    std::cout.tie(0);
+    std::cin>>a;
+    std::vector<std::string> arr;
+    while(!a.empty()){
+        arr.push_back(a);
+        a.erase(0,1);
+    }
+    std::sort(arr.begin(),arr.end(),std::greater<std::string>());
+    std::reverse(arr.begin(),arr.end());
+    for(auto i:arr){
+        std::cout<<i<<"\n";
+    }
+    return 0;
+}
