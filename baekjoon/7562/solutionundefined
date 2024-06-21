@@ -1,0 +1,60 @@
+// [문제 링크]: https://www.acmicpc.net/problem/7562
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <cstring>
+​
+using namespace std;
+​
+// 나이트가 이동할 수 있는 8가지 방향
+int dx[8] = {1, 2, 2, 1, -1, -2, -2, -1};
+int dy[8] = {2, 1, -1, -2, -2, -1, 1, 2};
+​
+int bfs(int l, pair<int, int> start, pair<int, int> end) {
+    // 체스판 범위 내의 이동 확인 및 방문 여부 저장
+    bool visited[300][300] = {false};
+    queue<pair<int, int>> q;
+    queue<int> d; // 이동 거리 저장
+    q.push(start);
+    d.push(0);
+    visited[start.first][start.second] = true;
+​
+    while (!q.empty()) {
+        pair<int, int> current = q.front(); q.pop();
+        int dist = d.front(); d.pop();
+​
+        if (current.first == end.first && current.second == end.second) {
+            return dist;
+        }
+​
+        for (int i = 0; i < 8; i++) {
+            int nx = current.first + dx[i];
+            int ny = current.second + dy[i];
+            
+            if (nx >= 0 && ny >= 0 && nx < l && ny < l && !visited[nx][ny]) {
+                visited[nx][ny] = true;
+                q.push({nx, ny});
+                d.push(dist + 1);
+            }
+        }
+    }
+    return -1; // 불가능한 경우는 주어지지 않으므로 기본적으로 실행되지 않음
+}
+​
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int l;
+        pair<int, int> start, end;
+        cin >> l;
+        cin >> start.first >> start.second;
+        cin >> end.first >> end.second;
+​
+        int result = bfs(l, start, end);
+        cout << result << endl;
+    }
+    return 0;
+}
+​
