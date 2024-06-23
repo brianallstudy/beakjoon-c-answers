@@ -1,0 +1,30 @@
+// [문제 링크]: https://www.acmicpc.net/problem/1806
+
+#include<iostream>
+#include<vector>
+using namespace std;
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    long long int a,b;
+    cin>>a>>b;
+    vector<int> dp(a);
+    for(int i=0;i<a;i++){
+        cin>>dp[i];
+    }
+    int r=0,l=0,ans=999999;
+    long long cnt=dp[0];
+    while(r<a){
+        if(cnt<b){
+            cnt+=dp[++r];
+        }else{
+            ans=min(ans,r+1-l);
+            cnt-=dp[l++];
+        }
+    }
+    if(ans==999999){
+        ans=0;
+    }
+    cout<<ans;
+}
