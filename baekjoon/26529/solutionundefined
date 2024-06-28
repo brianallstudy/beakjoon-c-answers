@@ -1,0 +1,25 @@
+// [문제 링크]: https://www.acmicpc.net/problem/26529
+
+#include<iostream>
+long long int dp[50]={0,};
+int way(){
+    std::ios::sync_with_stdio(0);
+    std::cin.tie(0);
+    std::cout.tie(0);
+    int n;
+    std::cin>>n;
+    std::cout<< dp[n]<<"\n";
+    return 0;
+}
+int main(){
+    int t;
+    std::cin>>t;
+    dp[0]=1;dp[1]=1;
+    for(int i=2;i<50;i++){
+        dp[i]=dp[i-1]+dp[i-2];
+    }
+    while(t--){
+        way();
+    }
+​
+}
