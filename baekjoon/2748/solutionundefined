@@ -1,0 +1,17 @@
+// [문제 링크]: https://www.acmicpc.net/problem/2748
+
+#include<iostream>
+int main(){
+    std::ios::sync_with_stdio(0);
+    std::cin.tie(0);
+    std::cout.tie(0);
+    int n;
+    std::cin>>n;
+    long long int dp[91]={0,};
+    dp[0]=0;dp[1]=1;dp[2]=1;
+    for(int i=3;i<91;i++){
+        dp[i]=dp[i-1]+dp[i-2];
+    }
+    std::cout<<dp[n];
+    return 0;
+}
