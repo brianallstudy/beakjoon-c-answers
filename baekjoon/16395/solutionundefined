@@ -1,0 +1,22 @@
+// [문제 링크]: https://www.acmicpc.net/problem/16395
+
+#include<iostream>
+#include<vector>
+using namespace std;
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int n,k;
+    cin>>n>>k;
+    vector<vector<int>>dp;
+    dp.push_back({1});
+    dp.push_back({1,1});
+    dp.push_back({1,2,1});
+    for(int i=3;i<30;i++){
+        vector<int> arr(i+1,1);
+        for(int j=1;j<i;j++) arr[j]=(dp[i-1][j-1]+dp[i-1][j]);
+        dp.push_back(arr);
+    }
+    cout<<dp[n-1][k-1];
+}
