@@ -1,0 +1,10 @@
+// [문제 링크]: https://www.acmicpc.net/problem/10926
+
+#include <iostream>
+using namespace std;
+int main() {
+    char str[51];
+    cin >> str;
+    cout << str << "??!";
+    return 0;
+}
