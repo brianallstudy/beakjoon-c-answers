@@ -1,0 +1,25 @@
+// [문제 링크]: https://www.acmicpc.net/problem/23797
+
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+int main(){
+    string a;
+    cin>>a;
+    int t=0,p=0;
+    for(int i=0;i<a.size();i++){
+        if(a[i]=='K'){
+            t++;
+            if(p>0){
+                p--;
+            }
+        }else{
+            p++;
+            if(t>0){
+                t--;
+            }
+        }
+    }
+    cout<<p+t;
+}
