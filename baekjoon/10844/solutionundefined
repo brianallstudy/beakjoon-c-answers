@@ -1,0 +1,29 @@
+// [문제 링크]: https://www.acmicpc.net/problem/10844
+
+#include<iostream>
+using namespace std;
+​
+int main(){
+    int a=0,dp[101][101], ANS=0;
+    cin >> a;
+    for(int i=1;i<=9;i++){
+        dp[1][i]=1;
+    }
+    for(int i=2;i<=a;i++){
+        for(int j=0;j<=9;j++){
+            if(j==0){
+                dp[i][j]=dp[i-1][j+1]%1000000000;
+            }else if(j==9){
+                dp[i][j]=dp[i-1][j-1]%1000000000;
+            }else{
+                dp[i][j]=(dp[i-1][j-1]+dp[i-1][j+1])%1000000000;
+            }
+        }
+    }
+    for(int i=0;i<=9;i++){
+        ANS=(ANS+dp[a][i])%1000000000;
+    }
+    cout<<ANS;
+    return 0;
+}
+​
